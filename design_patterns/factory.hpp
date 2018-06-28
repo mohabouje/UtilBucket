@@ -53,8 +53,8 @@ namespace util { namespace dp {
         Factory()  = default;
         ~Factory() = default;
 
-        template <class... T2>
-        std::unique_ptr<AbstractProduct> createObject(ProductKey const&, T2...) const;
+        template <class... Arguments>
+        std::unique_ptr<AbstractProduct> createObject(ProductKey const&, Arguments...) const;
 
         bool registerObject(ProductKey const&, ProductCreator);
         bool unregisterObject(ProductKey const&);
@@ -86,16 +86,16 @@ namespace util { namespace dp {
     }
 
     template <class AbstractProduct, typename ProductKey, typename ProductConstructor, typename ProductDestructor>
-    template <class... T2>
+    template <class... Arguments>
     std::unique_ptr<AbstractProduct>
         Factory<AbstractProduct, ProductKey, ProductConstructor, ProductDestructor>::createObject(
-            const ProductKey& key, T2... arguments) const {
+            const ProductKey& key, Arguments... arguments) const {
         const auto iter  = associations_.find(key);
         const auto found = (iter != associations_.end());
         if (!found) {
             throw std::runtime_error("Key is not registered");
         }
-        return std::unique_ptr<AbstractProduct>((iter->second)(arguments...));
+        return iter->second(arguments...);
     }
 }} // namespace util::dp
 
