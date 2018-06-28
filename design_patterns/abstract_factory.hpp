@@ -60,8 +60,11 @@ namespace util { namespace dp {
     template <class... Arguments>
     std::unique_ptr<AbstractProduct> AbstractFactory<AbstractProduct, FactoryKey, Factory>::createObject(
         const key_type& factory_key, const typename Factory::key_type& product_key, Arguments... arguments) {
-        const auto iter     = associations_.find(factory_key);
-        const auto found    = (iter != associations_.end());
+        const auto iter  = associations_.find(factory_key);
+        const auto found = (iter != associations_.end());
+        if (!found) {
+            throw std::runtime_error("Key is not registered");
+        }
         const auto& factory = iter->second;
         return found ? factory.createObject(product_key, arguments...) : nullptr;
     }

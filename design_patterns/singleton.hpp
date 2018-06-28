@@ -48,8 +48,8 @@ namespace util { namespace dp {
 
     private:
         ~Singleton();
-        static Type* instance_{nullptr};
-        static bool destroyed_{false};
+        static Type* instance_;
+        static bool destroyed_;
 
         template <class... Arguments>
         static void create(Arguments... rest);
@@ -94,6 +94,12 @@ namespace util { namespace dp {
     bool Singleton<Type>::isDestroyed() {
         return destroyed_;
     }
+
+    template <class Type>
+    Type* Singleton<Type>::instance_ = nullptr;
+
+    template <class Type>
+    bool Singleton<Type>::destroyed_ = false;
 
 }} // namespace util::dp
 
