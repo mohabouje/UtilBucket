@@ -1,0 +1,8 @@
+find_library(TEST_LIB NAMES lgtest libgtest gtest)
+if (TEST_LIB)
+    set(TEST_FILES )
+    add_executable(runtest ${TEST_FILES})
+    target_link_libraries(runtest ${PROJECT_NAME} ${TEST_LIB})
+else()
+    message("Google test library not found")
+endif()
