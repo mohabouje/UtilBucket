@@ -41,7 +41,7 @@ if (BUILD_BENCHMARK)
     add_subdirectory(benchmark)
 endif()
 
-add_library(${PROJECT_NAME} INTERFACE)
+add_library(${PROJECT_NAME} INTERFACE meta/polymorphism_traits.hpp meta/polymorphism_traits.hpp design_patterns/helper.hpp meta/function_traits.hpp)
 target_include_directories(${PROJECT_NAME} INTERFACE ${PROJECT_SOURCE_DIR}/meta/)
 target_sources(${PROJECT_NAME} INTERFACE ${PROJECT_SOURCE_DIR}/meta/)
 
