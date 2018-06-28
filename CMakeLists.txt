@@ -1,6 +1,6 @@
-cmake_minimum_required(VERSION 3.10)
+cmake_minimum_required(VERSION 3.4)
 project(UtilBucket VERSION 0.0.0 LANGUAGES CXX)
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 
@@ -41,5 +41,9 @@ if (BUILD_BENCHMARK)
     add_subdirectory(benchmark)
 endif()
 
+add_library(${PROJECT_NAME} INTERFACE)
+target_include_directories(${PROJECT_NAME} INTERFACE ${PROJECT_SOURCE_DIR}/meta/)
+target_sources(${PROJECT_NAME} INTERFACE ${PROJECT_SOURCE_DIR}/meta/)
 
-add_executable(${PROJECT_NAME} main.cpp)
+
+add_executable(${PROJECT_NAME}-exe main.cpp)
